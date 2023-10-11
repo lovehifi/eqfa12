@@ -7,7 +7,7 @@
 Build from Repo: 
 > https://github.com/bitkeeper/capsc
 >
-Other infoamation
+EQ information
 > https://github.com/jaakkopasanen/AutoEq
 >
 > https://www.bitlab.nl/page_id=540
