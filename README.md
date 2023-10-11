@@ -8,7 +8,7 @@ Parametric Eqfa12 Settings page:
 http://raudio/eqfa12 or http://ip/eqfa12
 >
 
-#### MPD rAuido
+#### Use for MPD rAuido
 Edit file /srv/http/data/mpdconf/mpd.conf
 >
 Add comment # this line, like this: 
@@ -20,7 +20,7 @@ And add this line:
 > include_optional    "eq12.conf"
 >
 >
-#### LMS-SQ
+####  Use for SQ LMSrAudio
 >
 Change the output to **-o eqfa12p**, like this:
 >
