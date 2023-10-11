@@ -4,3 +4,4 @@
 >
 ![Screenshot](eqfa12.png)
 
+Build from Repo: https://github.com/bitkeeper/capsc
