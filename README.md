@@ -5,9 +5,13 @@
 
 #### MPD rAuido
 Edit file /srv/http/data/mpdconf/mpd.conf
+>
 Add comment # this line, like this: 
+>
 > #include_optional    "output.conf"
+>
 And add this line:
+>
 > include_optional    "eq12.conf"
 >
 >
