@@ -3,11 +3,13 @@
 > wget -O - https://raw.githubusercontent.com/lovehifi/eqfa12/main/install.sh | sh
 >
 >
+------------
 Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
-
+-----------
+>
 #### Use for MPD rAuido
 Edit file /srv/http/data/mpdconf/mpd.conf
 >
@@ -19,6 +21,8 @@ And add this line:
 >
 > include_optional    "eq12.conf"
 >
+>
+-----------
 >
 ####  Use for SQ LMSrAudio
 >
