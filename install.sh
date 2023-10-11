@@ -56,3 +56,5 @@ fi
 cp -f /tmp/eqfa12p_modified.conf /etc/alsa/conf.d/eqfa12p.conf
 chown http:http /etc/alsa/conf.d/eqfa12p.conf
 
+echo "Install finised, please reboot"
+
