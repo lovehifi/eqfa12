@@ -36,6 +36,8 @@ Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
+The end single which is the overall gain? Not yet finish.
+>
 ![Screenshot](eqfa12.png)
 
 Build from Repo: 
