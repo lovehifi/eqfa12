@@ -10,7 +10,7 @@ http://raudio/eqfa12 or http://ip/eqfa12
 >
 -----------
 >
-#### Use for MPD rAuido
+#### Use for MPD rAudio
 Edit file /srv/http/data/mpdconf/mpd.conf
 >
 Add comment # this line, like this: 
