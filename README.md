@@ -23,7 +23,8 @@ And add this line:
 >
 > include_optional    "eq12.conf"
 >
-> reboot
+reboot
+>
 -----------
 >
 ####  Use for SQ LMSrAudio
@@ -32,7 +33,7 @@ Change the output to **-o eqfa12p**, like this:
 >
 > /opt/sq/squeezelite64 -o eqfa12p -n SQ64-rAudio -s 127.0.0.1 -m 00:00:00:00:00:00 -W
 >
-> reboot
+reboot
 >
 ![Screenshot](eqfa12.png)
 
