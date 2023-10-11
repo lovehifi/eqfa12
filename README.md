@@ -13,7 +13,7 @@ And add this line:
 >
 #### LMS-SQ
 >
-Output **-o eqfa12p**
+Chang the output **-o eqfa12p**
 >
 > /opt/sq/squeezelite64 -o eqfa12p -n SQ64-rAudio -s 127.0.0.1 -m 00:00:00:00:00:00 -W
 >
