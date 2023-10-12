@@ -29,6 +29,8 @@ wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_to_confi
 sleep 1
 cp -f /tmp/eqfa12/* /srv/http/eqfa12/
 chown http:http -Rv /srv/http/eqfa12
+touch /mnt/MPD/SD/eq_params.json
+chown http:http /mnt/MPD/SD/eq_params.json
 cd /tmp
 
 
