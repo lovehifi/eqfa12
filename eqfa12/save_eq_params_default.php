@@ -1,6 +1,6 @@
 <?php
 // Đường dẫn đến tệp eq_params_default.json
-$file_path = 'eq_params_default.json';
+$file_path = '/mnt/MPD/SD/eq_params_default.json';
 
 // Kiểm tra xem dữ liệu POST đã được gửi hay chưa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
