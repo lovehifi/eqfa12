@@ -53,20 +53,8 @@
             <tbody id="eqInfo">
             </tbody>
         </table>
-    <?php
-        // Load EQ data
-        $eqData = file_get_contents('eq_params_default.json');
-        $eqParams = json_decode($eqData, true);
-
-        // Display the volume value in an input field
-        $volumeValue = -5;  // Default value if not found
-        if (isset($eqParams['controls'])) {
-            $controls = $eqParams['controls'];
-            $volumeValue = end($controls);
-        }
-    ?>
-    <label for="volumeInput">Master Gain</label>
-    <input type="text" id="volumeInput" value="<?php echo $volumeValue; ?>" disabled>
+        <label for="volumeInput">Master Gain</label>
+        <input type="text" id="volumeInput">
         
         <div id="savesuccessMessage" class="mt-3" style="display: none;">
             <div class="alert alert-success" role="alert">
@@ -88,8 +76,8 @@
          </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
     // Function to get EQ parameters
     function getEQParams() {
         return $.ajax({
@@ -113,20 +101,24 @@
         // Loop through each band and display the information
         for (let i = 1; i <= 12; i++) {
             const bandInfo = eqParams['band' + i];
-            const isEnabled = parseInt(bandInfo.enabled) === 1;
-            eqInfoTbody.append(`
-                <tr class="band-info">
-                    <td>${i}</td>
-                    <td><input type="checkbox" ${isEnabled ? 'checked' : ''}></td>
-                    <td><input type="text" class="form-control" value="${bandInfo.freq}"></td>
-                    <td><input type="text" class="form-control" value="${bandInfo.q}"></td>
-                    <td><input type="text" class="form-control" value="${bandInfo.gain}"></td>
-                </tr>
-            `);
+
+            // Check if bandInfo and enabled property exist
+            if (bandInfo && bandInfo.hasOwnProperty('enabled')) {
+                const isEnabled = parseInt(bandInfo.enabled) === 1;
+                eqInfoTbody.append(`
+                    <tr class="band-info">
+                        <td>${i}</td>
+                        <td><input type="checkbox" ${isEnabled ? 'checked' : ''}></td>
+                        <td><input type="text" class="form-control" value="${bandInfo.freq}"></td>
+                        <td><input type="text" class="form-control" value="${bandInfo.q}"></td>
+                        <td><input type="text" class="form-control" value="${bandInfo.gain}"></td>
+                    </tr>
+                `);
+            }
         }
     }
 
-    // Function to update EQ parameters from user interface
+    // Function to update EQ parameters from the user interface
     function updateEQParamsFromUI() {
         const updatedEQParams = {};
 
@@ -223,26 +215,26 @@
 
         // Event handling when "Backup to Json" button is clicked
         $('#backupToJson').click(function () {
-            const updatedEQParams = updateEQParamsFromUI();
+    const updatedEQParams = updateEQParamsFromUI();
 
-            // Create JSON data from EQ parameters
-            const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
+    // Create JSON data from EQ parameters
+    const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
 
-            // Create a blob from the JSON data
-            const blob = new Blob([eqParamsJson], { type: 'application/json' });
+    // Create a blob from the JSON data
+    const blob = new Blob([eqParamsJson], { type: 'application/json' });
 
-            // Create a URL to download the JSON file
-            const url = URL.createObjectURL(blob);
+    // Create a URL to download the JSON file
+    const url = URL.createObjectURL(blob);
 
-            // Create an <a> element to download the JSON file
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'eq_params_new.json';
-            a.click();
+    // Create an <a> element to download the JSON file
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'eq_params_new.json';
+    a.click();
 
-            // Revoke the created URL
-            URL.revokeObjectURL(url);
-        });
+    // Revoke the created URL
+    URL.revokeObjectURL(url);
+});
 
         // Event handling when "Save to Default" button is clicked
         $('#saveToDefault').click(function () {
@@ -305,6 +297,26 @@
                 // Call the function to save EQ parameters to the file
                 saveConfigToFile(updatedEQParams);
                 showSuccessMessage();
+            });
+        });
+
+        $(document).ready(function () {
+            // Function to get EQ parameters and volume value
+            function getEQParamsAndVolumeValue() {
+                return $.ajax({
+                    url: 'get_eq_params.php',
+                    method: 'GET',
+                    dataType: 'json'
+                });
+            }
+
+            // Call the function to get EQ parameters and volume value
+            getEQParamsAndVolumeValue().done(function (data) {
+                // Update EQ params
+                displayEQInfo(data.eqParams);
+
+                // Update volume value
+                $('#volumeInput').val(data.volumeValue);
             });
         });
     });
