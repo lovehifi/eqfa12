@@ -37,7 +37,7 @@ Parametric Eqfa12 Settings page:
 http://raudio/eqfa12 or http://ip/eqfa12
 >
 >
-![Screenshot](eqfa12.png)
+![Screenshot](eqfa12a.png)
 
 Build from Repo: 
 > https://github.com/bitkeeper/capsc
