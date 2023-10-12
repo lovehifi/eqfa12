@@ -27,12 +27,16 @@ wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/index.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_eq_params_default.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_to_config.php
 sleep 1
+cp -f /tmp/eqfa12/eq_params_default.json /mnt/MPD/SD/
+chown http:http /mnt/MPD/SD/eq_params_default.json
 cp -f /tmp/eqfa12/* /srv/http/eqfa12/
+
+
 chown http:http -Rv /srv/http/eqfa12
 touch /mnt/MPD/SD/eq_params.json
 #touch /mnt/MPD/SD/eq_params_default.json
 chown http:http /mnt/MPD/SD/eq_params.json
-chown http:http /mnt/MPD/SD/eq_params_default.json
+
 cd /tmp
 
 
