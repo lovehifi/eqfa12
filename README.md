@@ -36,7 +36,6 @@ Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
-The end single which is the overall gain? This function Master Gain not yet finish.
 >
 ![Screenshot](eqfa12.png)
 
