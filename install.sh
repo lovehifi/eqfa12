@@ -30,7 +30,7 @@ sleep 1
 cp -f /tmp/eqfa12/* /srv/http/eqfa12/
 chown http:http -Rv /srv/http/eqfa12
 touch /mnt/MPD/SD/eq_params.json
-touch /mnt/MPD/SD/eq_params_default.json
+#touch /mnt/MPD/SD/eq_params_default.json
 chown http:http /mnt/MPD/SD/eq_params.json
 chown http:http /mnt/MPD/SD/eq_params_default.json
 cd /tmp
