@@ -19,12 +19,15 @@ tar -xzf /tmp/ladspa_share.tar.gz --overwrite -C /
 tar -xzf /tmp/ladspa_usr.tar.gz --overwrite -C /
 
 mkdir -p /srv/http/eqfa12
-cd /srv/http/eqfa12
+mkdir -p /tmp/eqfa12
+cd /tmp/eqfa12
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/eq_params_default.json
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/get_eq_params.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/index.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_eq_params_default.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_to_config.php
+sleep 1
+cp -f /tmp/eqfa12/* srv/http/eqfa12/
 chown http:http -Rv /srv/http/eqfa12
 cd /tmp
 
