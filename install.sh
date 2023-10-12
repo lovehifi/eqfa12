@@ -27,7 +27,7 @@ wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/index.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_eq_params_default.php
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eqfa12/save_to_config.php
 sleep 1
-cp -f /tmp/eqfa12/* srv/http/eqfa12/
+cp -f /tmp/eqfa12/* /srv/http/eqfa12/
 chown http:http -Rv /srv/http/eqfa12
 cd /tmp
 
