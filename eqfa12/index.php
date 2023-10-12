@@ -54,7 +54,9 @@
             </tbody>
         </table>
         <label for="volumeInput">Master Gain</label>
-        <input type="text" id="volumeInput">
+<input type="number" id="volumeInput" value="0">
+
+
         
         <div id="savesuccessMessage" class="mt-3" style="display: none;">
             <div class="alert alert-success" role="alert">
@@ -76,8 +78,8 @@
          </div>
 
 
-         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
     // Function to get EQ parameters
     function getEQParams() {
         return $.ajax({
@@ -93,47 +95,61 @@
         console.log('Updating EQ params:', updatedParams);
     }
 
-    // Display EQ information
-    function displayEQInfo(eqParams) {
-        const eqInfoTbody = $('#eqInfo');
-        eqInfoTbody.empty();
 
-        // Loop through each band and display the information
-        for (let i = 1; i <= 12; i++) {
-            const bandInfo = eqParams['band' + i];
+function displayEQInfo(eqParams) {
+    const eqInfoTbody = $('#eqInfo');
+    eqInfoTbody.empty();
 
-            // Check if bandInfo and enabled property exist
-            if (bandInfo && bandInfo.hasOwnProperty('enabled')) {
-                const isEnabled = parseInt(bandInfo.enabled) === 1;
-                eqInfoTbody.append(`
-                    <tr class="band-info">
-                        <td>${i}</td>
-                        <td><input type="checkbox" ${isEnabled ? 'checked' : ''}></td>
-                        <td><input type="text" class="form-control" value="${bandInfo.freq}"></td>
-                        <td><input type="text" class="form-control" value="${bandInfo.q}"></td>
-                        <td><input type="text" class="form-control" value="${bandInfo.gain}"></td>
-                    </tr>
-                `);
-            }
-        }
+    // Loop through each band and display the information
+    for (let i = 1; i <= 12; i++) {
+        const bandInfo = eqParams['band' + i];
+        const isEnabled = parseInt(bandInfo.enabled) === 1;
+
+        // Log band information to console
+        console.log(`Band ${i}: Enabled: ${isEnabled}, Freq: ${bandInfo.freq}, Q: ${bandInfo.q}, Gain: ${bandInfo.gain}`);
+
+        eqInfoTbody.append(`
+            <tr class="band-info">
+                <td>${i}</td>
+                <td><input type="checkbox" ${isEnabled ? 'checked' : ''}></td>
+                <td><input type="text" class="form-control" value="${bandInfo.freq}"></td>
+                <td><input type="text" class="form-control" value="${bandInfo.q}"></td>
+                <td><input type="text" class="form-control" value="${bandInfo.gain}"></td>
+            </tr>
+        `);
     }
 
-    // Function to update EQ parameters from the user interface
-    function updateEQParamsFromUI() {
-        const updatedEQParams = {};
+   // Display volume information
+   const volume = eqParams['volume'];
+    console.log(`Volume: ${volume}`);
+    $('#volumeInput').val(volume);
+}
 
-        // Loop through each band and retrieve information from the user interface
-        for (let i = 1; i <= 12; i++) {
-            updatedEQParams[`band${i}`] = {
-                enabled: $(`#eqInfo tr:nth-child(${i}) td:nth-child(2) input`).prop('checked') ? "1" : "0",
-                freq: $(`#eqInfo tr:nth-child(${i}) td:nth-child(3) input`).val(),
-                q: $(`#eqInfo tr:nth-child(${i}) td:nth-child(4) input`).val(),
-                gain: $(`#eqInfo tr:nth-child(${i}) td:nth-child(5) input`).val()
-            };
-        }
 
-        return updatedEQParams;
+
+function updateEQParamsFromUI() {
+    const updatedEQParams = {};
+
+    // Loop through each band and retrieve information from the user interface
+    for (let i = 1; i <= 12; i++) {
+        updatedEQParams[`band${i}`] = {
+            enabled: $(`#eqInfo tr:nth-child(${i}) td:nth-child(2) input`).prop('checked') ? "1" : "0",
+            freq: $(`#eqInfo tr:nth-child(${i}) td:nth-child(3) input`).val(),
+            q: $(`#eqInfo tr:nth-child(${i}) td:nth-child(4) input`).val(),
+            gain: $(`#eqInfo tr:nth-child(${i}) td:nth-child(5) input`).val()
+        };
     }
+
+    // Update volume value
+    const volume = $('#volumeInput').val();
+    updatedEQParams['volume'] = parseFloat(volume);
+
+    console.log('Volume:', updatedEQParams['volume']); // Log the volume value
+
+    return updatedEQParams;
+}
+
+
 
     // Function to update EQ parameters in the configuration file
     function updateEQParamsInConfigFile(eqParams) {
@@ -150,29 +166,37 @@
         saveConfigToFile(configString);
     }
 
-    // Function to save EQ parameters to the configuration file
-    function saveConfigToFile(updatedParams) {
-        const controlsArray = Object.keys(updatedParams).map(key => {
-            const bandInfo = updatedParams[key];
-            return `${bandInfo.enabled} ${bandInfo.freq} ${bandInfo.q} ${bandInfo.gain}`;
-        });
+// Function to save EQ parameters to the configuration file
+function saveConfigToFile(updatedParams) {
+    const controlsArray = [];
 
-        // Create the controls string
-        const controlsString = '[' + controlsArray.join(' ') + ']';
-
-        // Call AJAX to save EQ parameters to the file
-        $.ajax({
-            url: 'save_to_config.php',
-            method: 'POST',
-            data: { controls: controlsString },
-            success: function (response) {
-                console.log('Successfully updated EQ params:', response);
-            },
-            error: function (xhr, status, error) {
-                console.error('Error updating EQ params:', error);
-            }
-        });
+    // Loop through each band and retrieve information
+    for (let i = 1; i <= 12; i++) {
+        const bandInfo = updatedParams[`band${i}`];
+        controlsArray.push(`${bandInfo.enabled} ${bandInfo.freq} ${bandInfo.q} ${bandInfo.gain}`);
     }
+
+    // Add volume to the controls array
+    controlsArray.push(updatedParams.volume);
+
+    // Create the controls string
+    const controlsString = '[' + controlsArray.join(' ') + ']';
+
+    // Call AJAX to save EQ parameters to the file
+    $.ajax({
+        url: 'save_to_config.php',
+        method: 'POST',
+        data: { controls: controlsString },
+        success: function (response) {
+            console.log('Successfully updated EQ params:', response);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error updating EQ params:', error);
+        }
+    });
+}
+
+
 
     // Event handling when "Apply" button is clicked
     $('#applyChanges').click(function () {
@@ -215,26 +239,26 @@
 
         // Event handling when "Backup to Json" button is clicked
         $('#backupToJson').click(function () {
-    const updatedEQParams = updateEQParamsFromUI();
+            const updatedEQParams = updateEQParamsFromUI();
 
-    // Create JSON data from EQ parameters
-    const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
+            // Create JSON data from EQ parameters
+            const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
 
-    // Create a blob from the JSON data
-    const blob = new Blob([eqParamsJson], { type: 'application/json' });
+            // Create a blob from the JSON data
+            const blob = new Blob([eqParamsJson], { type: 'application/json' });
 
-    // Create a URL to download the JSON file
-    const url = URL.createObjectURL(blob);
+            // Create a URL to download the JSON file
+            const url = URL.createObjectURL(blob);
 
-    // Create an <a> element to download the JSON file
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'eq_params_new.json';
-    a.click();
+            // Create an <a> element to download the JSON file
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'eq_params_new.json';
+            a.click();
 
-    // Revoke the created URL
-    URL.revokeObjectURL(url);
-});
+            // Revoke the created URL
+            URL.revokeObjectURL(url);
+        });
 
         // Event handling when "Save to Default" button is clicked
         $('#saveToDefault').click(function () {
@@ -275,50 +299,37 @@
             });
         });
 
-        // Event handling when "Reset to Default" button is clicked
-        $('#resetToDefault').click(function () {
-            // Get default EQ parameters from the JSON file
-            $.ajax({
-                url: '/mnt/MPD/SD/eq_params_default.json',
-                method: 'GET',
-                dataType: 'json'
-            }).done(function (defaultEQParams) {
-                // Display the default EQ information on the interface
-                displayEQInfo(defaultEQParams);
 
-                const updatedEQParams = updateEQParamsFromUI();
+// Event handling when "Reset to Default" button is clicked
+$('#resetToDefault').click(function () {
+    // Get default EQ parameters from the JSON file
+    $.ajax({
+        url: '/mnt/MPD/SD/eq_params_default.json',
+        method: 'GET',
+        dataType: 'json'
+    }).done(function (defaultEQParams) {
+        // Display the default EQ information on the interface
+        displayEQInfo(defaultEQParams);
 
-                // Call the function to update EQ parameters
-                updateEQParams(updatedEQParams);
+        // Display volume information from default EQ parameters
+        const defaultVolume = defaultEQParams['volume'];
+        console.log(`Volume (Default): ${defaultVolume}`);
+        $('#volumeInput').val(defaultVolume);
 
-                // Log the updated EQ parameters to the console
-                console.log('Updated EQ params:', updatedEQParams);
+        const updatedEQParams = updateEQParamsFromUI();
 
-                // Call the function to save EQ parameters to the file
-                saveConfigToFile(updatedEQParams);
-                showSuccessMessage();
-            });
-        });
+        // Call the function to update EQ parameters
+        updateEQParams(updatedEQParams);
 
-        $(document).ready(function () {
-            // Function to get EQ parameters and volume value
-            function getEQParamsAndVolumeValue() {
-                return $.ajax({
-                    url: 'get_eq_params.php',
-                    method: 'GET',
-                    dataType: 'json'
-                });
-            }
+        // Log the updated EQ parameters to the console
+        console.log('Updated EQ params:', updatedEQParams);
 
-            // Call the function to get EQ parameters and volume value
-            getEQParamsAndVolumeValue().done(function (data) {
-                // Update EQ params
-                displayEQInfo(data.eqParams);
+        // Call the function to save EQ parameters to the file
+        saveConfigToFile(updatedEQParams);
+        showSuccessMessage();
+    });
+});
 
-                // Update volume value
-                $('#volumeInput').val(data.volumeValue);
-            });
-        });
     });
 </script>
 
