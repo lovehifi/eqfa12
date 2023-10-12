@@ -304,7 +304,7 @@
             // Function to get EQ parameters and volume value
             function getEQParamsAndVolumeValue() {
                 return $.ajax({
-                    url: 'get_eq_params.php',  // Thay đổi đường dẫn này thành API hoặc nguồn dữ liệu để lấy giá trị volume và thông số EQ
+                    url: 'get_eq_params.php',
                     method: 'GET',
                     dataType: 'json'
                 });
