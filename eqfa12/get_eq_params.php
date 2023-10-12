@@ -2,6 +2,9 @@
 // Đường dẫn đến tệp cấu hình EQ
 $configFilePath = '/etc/alsa/conf.d/eqfa12p.conf';
 
+$eqData = file_get_contents('eq_params.json');
+echo $eqData;
+
 // Hàm để trích xuất thông số EQ từ nội dung cấu hình
 function extractEQParams($configContent) {
   $eqParameters = array();
