@@ -53,7 +53,21 @@
             <tbody id="eqInfo">
             </tbody>
         </table>
+    <?php
+        // Load EQ data
+        $eqData = file_get_contents('eq_params_default.json');
+        $eqParams = json_decode($eqData, true);
 
+        // Display the volume value in an input field
+        $volumeValue = -5;  // Default value if not found
+        if (isset($eqParams['controls'])) {
+            $controls = $eqParams['controls'];
+            $volumeValue = end($controls);
+        }
+    ?>
+    <label for="volumeInput">Master Gain</label>
+    <input type="text" id="volumeInput" value="<?php echo $volumeValue; ?>" disabled>
+        
         <div id="savesuccessMessage" class="mt-3" style="display: none;">
             <div class="alert alert-success" role="alert">
                 EQ settings have been saved successfully!
