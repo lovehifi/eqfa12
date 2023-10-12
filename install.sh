@@ -13,8 +13,10 @@ wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/eq12.conf
 cp -f /tmp/eq12.conf /srv/http/data/mpdconf/
 chown http:http /srv/http/data/mpdconf/eq12.conf
 
+wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/caps.tar.gz
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/ladspa_share.tar.gz
 wget https://raw.githubusercontent.com/lovehifi/eqfa12/main/ladspa_usr.tar.gz
+tar -xzf /tmp/caps.tar.gz --overwrite -C /
 tar -xzf /tmp/ladspa_share.tar.gz --overwrite -C /
 tar -xzf /tmp/ladspa_usr.tar.gz --overwrite -C /
 
