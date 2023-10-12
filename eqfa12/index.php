@@ -279,7 +279,7 @@
         $('#resetToDefault').click(function () {
             // Get default EQ parameters from the JSON file
             $.ajax({
-                url: 'eq_params_default.json',
+                url: '/mnt/MPD/SD/eq_params_default.json',
                 method: 'GET',
                 dataType: 'json'
             }).done(function (defaultEQParams) {
@@ -304,7 +304,7 @@
             // Function to get EQ parameters and volume value
             function getEQParamsAndVolumeValue() {
                 return $.ajax({
-                    url: 'get_eq_params.php',
+                    url: 'get_eq_params.php',  // Thay đổi đường dẫn này thành API hoặc nguồn dữ liệu để lấy giá trị volume và thông số EQ
                     method: 'GET',
                     dataType: 'json'
                 });
