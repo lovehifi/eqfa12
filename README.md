@@ -38,7 +38,7 @@ Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
-http://quitte.de/dsp/caps.html
+
 >
 ![Screenshot](eqfa13a.png)
 
@@ -48,6 +48,8 @@ Build from Repo:
 Information
 >
 > https://www.bitlab.nl/page_id=540
+>
+> http://quitte.de/dsp/caps.html
 >
 > https://github.com/jaakkopasanen/AutoEq
 >
