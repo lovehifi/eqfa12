@@ -34,7 +34,7 @@ Change the output to **-o eqfa12p**, like this:
 reboot
 >
 ------------
-Parametric Eqfa12 Settings page:
+## Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
