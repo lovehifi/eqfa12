@@ -1,5 +1,7 @@
 # 12 band Parametric EQ (Eqfa12p) for rAudio
 >
+EqFa12p a 3x4 bands parameteric EQ
+>
 Install
 >
 > wget -O - https://raw.githubusercontent.com/lovehifi/eqfa12/main/install.sh | sh
