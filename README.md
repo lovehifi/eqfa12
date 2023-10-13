@@ -38,6 +38,7 @@ Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
 >
+http://quitte.de/dsp/caps.html
 >
 ![Screenshot](eqfa13a.png)
 
