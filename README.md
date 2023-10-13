@@ -40,7 +40,7 @@ http://raudio/eqfa12 or http://ip/eqfa12
 ![Screenshot](eqfa13a.png)
 
 Build from Repo: 
-> [https://github.com/bitkeeper/capsc](https://github.com/bitkeeper/caps)
+> [https://github.com/bitkeeper/caps](https://github.com/bitkeeper/caps)
 >
 EQ information
 > https://github.com/jaakkopasanen/AutoEq
