@@ -44,7 +44,9 @@ http://raudio/eqfa12 or http://ip/eqfa12
 Build from Repo: 
 > [https://github.com/bitkeeper/caps](https://github.com/bitkeeper/caps)
 >
-EQ information
-> https://github.com/jaakkopasanen/AutoEq
+Information
 >
 > https://www.bitlab.nl/page_id=540
+>
+> https://github.com/jaakkopasanen/AutoEq
+>
