@@ -34,6 +34,13 @@ Change the output to **-o eqfa12p**, like this:
 reboot
 >
 ------------
+## Config Alsa for Eqfa12p
+>
+When you switch DACs, it's necessary to run this command to configure the /etc/alsa/conf.d/eqfa12p.conf file:
+>
+> /opt/eq.sh
+>
+------------
 ## Parametric Eqfa12 Settings page:
 >
 http://raudio/eqfa12 or http://ip/eqfa12
