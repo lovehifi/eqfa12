@@ -30,7 +30,7 @@
         }
 
         .table input {
-            width: 70px;
+            width: 90px;
             height: 25px;
             margin: 0;
         }
@@ -54,10 +54,8 @@
             </tbody>
         </table>
         <label for="volumeInput">Master Gain</label>
-<input type="number" id="volumeInput" value="0">
+        <input type="number" id="volumeInput" value="0">
 
-
-        
         <div id="savesuccessMessage" class="mt-3" style="display: none;">
             <div class="alert alert-success" role="alert">
                 EQ settings have been saved successfully!
@@ -68,7 +66,6 @@
                Load successfully!
             </div>
         </div>
-
 
         <div class="mt-3">
              <button id="applyChanges" class="btn btn-primary">Apply</button>             
@@ -89,11 +86,11 @@
         });
     }
 
-    // Function to update EQ parameters
-    function updateEQParams(updatedParams) {
-        // Code to update EQ parameters goes here
-        console.log('Updating EQ params:', updatedParams);
-    }
+// Function to update EQ parameters
+function updateEQParams(updatedParams) {
+    // Code to update EQ parameters goes here
+    console.log('Updating EQ params:', updatedParams);
+}
 
 
 function displayEQInfo(eqParams) {
@@ -112,9 +109,9 @@ function displayEQInfo(eqParams) {
             <tr class="band-info">
                 <td>${i}</td>
                 <td><input type="checkbox" ${isEnabled ? 'checked' : ''}></td>
-                <td><input type="text" class="form-control" value="${bandInfo.freq}"></td>
-                <td><input type="text" class="form-control" value="${bandInfo.q}"></td>
-                <td><input type="text" class="form-control" value="${bandInfo.gain}"></td>
+                <td><input type="number" class="form-control" value="${bandInfo.freq}"></td>
+                <td><input type="number" class="form-control" value="${bandInfo.q}"></td>
+                <td><input type="number" class="form-control" value="${bandInfo.gain}"></td>
             </tr>
         `);
     }
@@ -150,21 +147,20 @@ function updateEQParamsFromUI() {
 }
 
 
-
-    // Function to update EQ parameters in the configuration file
-    function updateEQParamsInConfigFile(eqParams) {
-        const configContent = [];
-        for (let i = 1; i <= 12; i++) {
-            const bandInfo = eqParams[`band${i}`];
-            const enabled = parseInt(bandInfo.enabled) === 1 ? '1' : '0';
-            const line = `${enabled},${bandInfo.freq},${bandInfo.q},${bandInfo.gain}`;
-            configContent.push(line);
-        }
-
-        const configString = configContent.join('\n');
-        // Call the function to save to the configuration file
-        saveConfigToFile(configString);
+// Function to update EQ parameters in the configuration file
+function updateEQParamsInConfigFile(eqParams) {
+    const configContent = [];
+    for (let i = 1; i <= 12; i++) {
+        const bandInfo = eqParams[`band${i}`];
+        const enabled = parseInt(bandInfo.enabled) === 1 ? '1' : '0';
+        const line = `${enabled},${bandInfo.freq},${bandInfo.q},${bandInfo.gain}`;
+        configContent.push(line);
     }
+
+    const configString = configContent.join('\n');
+    // Call the function to save to the configuration file
+    saveConfigToFile(configString);
+}
 
 // Function to save EQ parameters to the configuration file
 function saveConfigToFile(updatedParams) {
@@ -196,108 +192,126 @@ function saveConfigToFile(updatedParams) {
     });
 }
 
+$(document).ready(function () {
+    // Function to handle mouse wheel event on input number elements
+    $('#eqInfo').on('wheel', 'input[type="number"]', function (event) {
+        event.preventDefault();
 
+        // Get the current value of the input
+        let currentValue = parseFloat($(this).val());
 
-    // Event handling when "Apply" button is clicked
-    $('#applyChanges').click(function () {
-        const updatedEQParams = updateEQParamsFromUI();
+        // Determine the step based on the event direction
+        const step = event.originalEvent.deltaY > 0 ? -1 : 1;
 
-        // Call the function to update EQ parameters
-        updateEQParams(updatedEQParams);
-
-        // Log the updated EQ parameters to the console
-        console.log('Updated EQ params:', updatedEQParams);
-
-        // Call the function to save EQ parameters to the file
-        saveConfigToFile(updatedEQParams);
-
-        showSuccessMessage();
+        // Update the value and trigger the input event to update the display
+        $(this).val(currentValue + step).trigger('input');
     });
 
-    // Function to show success message
-    function showSuccessMessage() {
-        // Display the success message
-        $('#successMessage').show();
+    // ... Rest of your existing code ...
 
-        // Hide the message after 3 seconds
-        setTimeout(function () {
-            $('#successMessage').fadeOut();
-        }, 2000);
-    }
+});
 
-    // Event handling when the document has finished loading
-    $(document).ready(function () {
-        // Get EQ parameters and display them
-        getEQParams().done(function (eqParams) {
-            displayEQInfo(eqParams);
-        });
 
-        // Log EQ parameters to the console
-        getEQParams().done(function (eqParams) {
-            console.log('EQ parameters:', eqParams);
-        });
+// Event handling when "Apply" button is clicked
+$('#applyChanges').click(function () {
+    const updatedEQParams = updateEQParamsFromUI();
 
-        // Event handling when "Backup to Json" button is clicked
-        $('#backupToJson').click(function () {
-            const updatedEQParams = updateEQParamsFromUI();
+    // Call the function to update EQ parameters
+    updateEQParams(updatedEQParams);
 
-            // Create JSON data from EQ parameters
-            const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
+    // Log the updated EQ parameters to the console
+    console.log('Updated EQ params:', updatedEQParams);
 
-            // Create a blob from the JSON data
-            const blob = new Blob([eqParamsJson], { type: 'application/json' });
+    // Call the function to save EQ parameters to the file
+    saveConfigToFile(updatedEQParams);
 
-            // Create a URL to download the JSON file
-            const url = URL.createObjectURL(blob);
+    showSuccessMessage();
+});
 
-            // Create an <a> element to download the JSON file
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'eq_params_new.json';
-            a.click();
+// Function to show success message
+function showSuccessMessage() {
+    // Display the success message
+    $('#successMessage').show();
 
-            // Revoke the created URL
-            URL.revokeObjectURL(url);
-        });
+    // Hide the message after 3 seconds
+    setTimeout(function () {
+        $('#successMessage').fadeOut();
+    }, 2000);
+}
 
-        // Event handling when "Save to Default" button is clicked
-        $('#saveToDefault').click(function () {
-            const updatedEQParams = updateEQParamsFromUI();
+// Event handling when the document has finished loading
+$(document).ready(function () {
+// Get EQ parameters and display them
+getEQParams().done(function (eqParams) {
+    displayEQInfo(eqParams);
+});
 
-            // Call the function to update EQ parameters
-            updateEQParams(updatedEQParams);
+// Log EQ parameters to the console
+getEQParams().done(function (eqParams) {
+    console.log('EQ parameters:', eqParams);
+});
 
-            // Log the updated EQ parameters to the console
-            console.log('Updated EQ params:', updatedEQParams);
+// Event handling when "Backup to Json" button is clicked
+$('#backupToJson').click(function () {
+    const updatedEQParams = updateEQParamsFromUI();
 
-            // Call the function to save EQ parameters to the file
-            saveConfigToFile(updatedEQParams);
+    // Create JSON data from EQ parameters
+    const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
 
-            const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
+    // Create a blob from the JSON data
+    const blob = new Blob([eqParamsJson], { type: 'application/json' });
 
-            // Save the data to eq_params_default.json
-            $.ajax({
-                url: 'save_eq_params_default.php',
-                method: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                data: eqParamsJson,
-                success: function (response) {
-                    console.log('Saved to default:', response);
+    // Create a URL to download the JSON file
+    const url = URL.createObjectURL(blob);
 
-                    // Display the success message
-                    $('#savesuccessMessage').show();
+    // Create an <a> element to download the JSON file
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'eq_params_new.json';
+    a.click();
 
-                    // Hide the message after 3 seconds
-                    setTimeout(function () {
-                        $('#savesuccessMessage').fadeOut();
-                    }, 2000);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error saving to default:', error);
-                }
-            });
-        });
+    // Revoke the created URL
+    URL.revokeObjectURL(url);
+});
+
+// Event handling when "Save to Default" button is clicked
+$('#saveToDefault').click(function () {
+    const updatedEQParams = updateEQParamsFromUI();
+
+    // Call the function to update EQ parameters
+    updateEQParams(updatedEQParams);
+
+    // Log the updated EQ parameters to the console
+    console.log('Updated EQ params:', updatedEQParams);
+
+    // Call the function to save EQ parameters to the file
+    saveConfigToFile(updatedEQParams);
+
+    const eqParamsJson = JSON.stringify(updatedEQParams, null, 2);
+
+    // Save the data to eq_params_default.json
+    $.ajax({
+        url: 'save_eq_params_default.php',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: eqParamsJson,
+        success: function (response) {
+            console.log('Saved to default:', response);
+
+            // Display the success message
+            $('#savesuccessMessage').show();
+
+            // Hide the message after 3 seconds
+            setTimeout(function () {
+                $('#savesuccessMessage').fadeOut();
+            }, 2000);
+        },
+        error: function (xhr, status, error) {
+            console.error('Error saving to default:', error);
+        }
+    });
+});
 
 
 // Event handling when "Reset to Default" button is clicked
@@ -330,9 +344,8 @@ $('#resetToDefault').click(function () {
     });
 });
 
-    });
+});
 </script>
-
 
 </body>
 
