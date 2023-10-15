@@ -53,6 +53,7 @@ http://raudio/eqfa12 or http://ip/eqfa12
 > [https://github.com/bitkeeper/caps](https://github.com/bitkeeper/caps)
 >
 #### Information
+> https://audiosolace.com/parametric-eq-vs-graphic-eq/
 >
 > https://www.bitlab.nl/page_id=540
 >
@@ -60,6 +61,7 @@ http://raudio/eqfa12 or http://ip/eqfa12
 >
 > https://github.com/jaakkopasanen/AutoEq
 >
+> 
 ----------------------
 ## Graphic EQ vs. parametric EQ—what’s the difference?
 Graphic EQ and Parametric EQ are two equalizer layouts that offer different methods of frequency control. Graphic EQ uses many narrow adjacent EQ bands to target specific frequencies, while parametric EQ allows the user to change the width of each band for broader adjustment.
