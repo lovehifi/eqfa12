@@ -33,6 +33,11 @@ Change the output to **-o eqfa12p**, like this:
 >
 reboot
 >
+-------
+#### Eqfa12 LMSrAudio
+>
+https://github.com/lovehifi/addraudio#4-eqfa12-lms
+>
 ------------
 #### Config Alsa for Eqfa12p
 >
