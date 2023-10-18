@@ -34,7 +34,7 @@ Change the output to **-o eqfa12p**, like this:
 reboot
 >
 -------
-#### Eqfa12 LMSrAudio
+#### Install Eqfa12 for LMSrAudio
 >
 https://github.com/lovehifi/addraudio#4-eqfa12-lms
 >
