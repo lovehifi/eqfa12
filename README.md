@@ -58,6 +58,8 @@ http://raudio/eqfa12 or http://ip/eqfa12
 > [https://github.com/bitkeeper/caps](https://github.com/bitkeeper/caps)
 >
 #### Information
+> https://audiouniversityonline.com/parametric-eq-vs-graphic-eq/
+>
 > https://audiosolace.com/parametric-eq-vs-graphic-eq/
 >
 > https://www.bitlab.nl/page_id=540
