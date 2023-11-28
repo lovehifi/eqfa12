@@ -68,6 +68,7 @@ http://raudio/eqfa12 or http://ip/eqfa12
 >
 > https://github.com/jaakkopasanen/AutoEq
 >
+> https://autoeq.app
 > 
 ----------------------
 ## Graphic EQ vs. parametric EQ—what’s the difference?
